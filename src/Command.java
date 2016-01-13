@@ -4,4 +4,8 @@ public interface Command {
 	
 	public String execute(File file);
 	
+	public boolean fileCompatible();
+	
+	public boolean folderCompatible();
+	
 }
