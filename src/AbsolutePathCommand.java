@@ -4,8 +4,7 @@ public class AbsolutePathCommand implements Command {
 
 	@Override
 	public String execute(File file) {
-		// TODO Auto-generated method stub
-		return null;
+		return file.getAbsolutePath();
 	}
 
 	@Override
@@ -16,6 +15,11 @@ public class AbsolutePathCommand implements Command {
 	@Override
 	public boolean folderCompatible() {
 		return true;
+	}
+
+	@Override
+	public String getName() {
+		return "Absolute path";
 	}
 
 }

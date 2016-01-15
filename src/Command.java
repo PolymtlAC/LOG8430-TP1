@@ -8,4 +8,6 @@ public interface Command {
 	
 	public boolean folderCompatible();
 	
+	public String getName();
+	
 }
