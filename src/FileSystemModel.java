@@ -6,6 +6,10 @@ import java.io.File;
 import java.util.Enumeration;
 import java.util.Vector;
 
+/**
+ * A data model which can be used in a JTree to represent the file system of the user.
+ *
+ */
 public class FileSystemModel implements TreeModel {
 	
 	protected File root;

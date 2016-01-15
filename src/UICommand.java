@@ -6,6 +6,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * This class represents the graphical interface for commands.
+ * An instance of the class is a line on the command panel in the main window.
+ * Contains the command, the button and the result label. 
+ * Also connect the button click with the command's execution.
+ */
 public class UICommand extends JPanel {
 	
 	protected Command command;
@@ -13,6 +19,13 @@ public class UICommand extends JPanel {
 	protected JLabel commandResult;
 	protected File currentFile;
 	
+	/**
+	 * Constructor UICommand.
+	 * <p>
+	 * Create the graphical interface for one command.
+	 * </p>
+	 * @param command
+	 */
 	public UICommand(Command command) {
 		this.command = command;
 		this.commandButton = new JButton(command.getName());
@@ -29,20 +42,39 @@ public class UICommand extends JPanel {
 		this.add(this.commandResult);
 	}
 
+	/**
+	 * Executes the command with the current file selected.
+	 * Print the result in the label next to the button.
+	 */
 	public void execute() {
 		this.commandResult.setText(this.command.execute(currentFile));
 	}
 	
+	/**
+	 * Clear the result label on the graphical interface.
+	 */
 	public void clear() {
 		this.commandResult.setText("");
 	}
 	
+	/**
+	 * Modifies the current file. 
+	 * Checks if the command is executable with the file type (file or folder) 
+	 * and enables or disables the button consequently.
+	 * 
+	 * @param file the new current file
+	 */
 	public void setCurrentFile(File file) {
 		this.currentFile = file;
 		this.commandButton.setEnabled(this.isEnabled());
 		this.clear();
 	}
 	
+	/**
+	 * Returns if the command can be executed giving the current file type (file or folder).
+	 * 
+	 * @return a boolean telling if the command can be executed giving the current file type (file or folder).
+	 */
 	public boolean isEnabled() {
 		if(this.currentFile.isDirectory() && !this.command.folderCompatible()) {
 			return false;

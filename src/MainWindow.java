@@ -16,6 +16,10 @@ import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
+/**
+ * Main window of the application.
+ *
+ */
 public class MainWindow extends JFrame implements ActionListener, TreeSelectionListener {
 	
 	protected FileSystemModel fileSystemModel;
@@ -27,6 +31,12 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 	protected JFileChooser fileChooser;
 	protected ArrayList<UICommand> commands;
 	
+	 /**
+     * Constructor MainWindow.
+     * <p>
+     * Construct all the graphical interface and add listeners for buttons.
+     * </p>
+     */
 	public MainWindow() {
 		
 		this.commands = new ArrayList<>();
@@ -78,6 +88,9 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 		this.getContentPane().add(southLabel, BorderLayout.SOUTH);
 	}
 	
+	/**
+	 * Adds the commands to the command list.
+	 */
 	public void addCommands() {
 		this.commands.add(new UICommand(new FileNameCommand()));
 		this.commands.add(new UICommand(new FolderNameCommand()));
@@ -88,6 +101,11 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 		}
 	}
 
+	/**
+	 * Calls the appropriate method depending of the event source.
+	 * 
+	 * @param event 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if(event.getSource() == this.folderSelectionButton) {
@@ -97,8 +115,14 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 		}
 	}
 	
+	/**
+	 * Called when the user select a file or folder on the tree view.
+	 * Replaces the current file by the new file selected.
+	 * 
+	 * @param event
+	 */
 	@Override
-	public void valueChanged(TreeSelectionEvent e) {
+	public void valueChanged(TreeSelectionEvent event) {
 		File file = (File) tree.getLastSelectedPathComponent();
 		
 		if(file == null)
@@ -107,8 +131,13 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 		this.setCurrentFile(file);
 	}
 	
+	/**
+	 * Update the current file for all commands. 
+	 * And if the autoRun is checked, executes all the commands.
+	 * 
+	 * @param file
+	 */
 	private void setCurrentFile(File file) {
-		this.fileSystemModel.setRoot(file);
         for(UICommand command : commands) {
 			command.setCurrentFile(file);
 			
@@ -118,12 +147,19 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 		}
 	}
 
+	/**
+	 * Clears the label of all commands.
+	 */
 	private void clear() {
 		for(UICommand command : commands) {
 			command.clear();
 		}
 	}
 
+	/** 
+	 * Opens the file chooser and modifies the current file if the user doesn't cancel.
+	 * Update the tree view with the new root if necessary.
+	 */
 	public void selectFolder() {
         if(fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
