@@ -93,12 +93,12 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 	 * Adds the commands to the command list.
 	 */
 	public void addCommands() {
-		this.commands.add(new UICommand(new FileNameCommand()));
-		this.commands.add(new UICommand(new FolderNameCommand()));
-		this.commands.add(new UICommand(new AbsolutePathCommand()));
+		CommandLoader commandLoader = new CommandLoader(CommandLoader.class.getClassLoader());
 		
-		for(UICommand command : commands) {
-			this.commandPanel.add(command);
+		for(Command command : commandLoader.loadAllCommands()) {
+			UICommand uiCommand = new UICommand(command);
+			this.commandPanel.add(uiCommand);
+			this.commands.add(uiCommand);
 		}
 	}
 
