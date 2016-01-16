@@ -11,6 +11,10 @@ public class UIFile implements TreeNode {
 	
 	protected File file;
 
+	public UIFile(File file) {
+		this.file = file;
+	}
+	
 	public UIFile(String pathname) {
 		this.file = new File(pathname);
 	}

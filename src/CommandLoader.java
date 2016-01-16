@@ -12,6 +12,11 @@ public class CommandLoader extends ClassLoader{
         super(parent);
     }
 
+    /**
+     * Load a class of the commands folder.
+     * 
+     * @return a Class of the commands folder
+     */
     public Class loadClass(String name) throws ClassNotFoundException {
     	if(name.contains("Command") && name != "Command") {
     		return super.loadClass(name);
@@ -40,6 +45,12 @@ public class CommandLoader extends ClassLoader{
         return null;
     }
     
+    /**
+     * Create an instance of a Command class loaded dynamically.
+     * 
+     * @param name the file name of the command without extension
+     * @return an instance of the command Class
+     */
     public Command loadCommand(String name) {
 		try {
 			Class commandClass = this.loadClass(name);
@@ -51,6 +62,11 @@ public class CommandLoader extends ClassLoader{
     	return null;
     }
     
+    /**
+     * Loads all commands located in the commands directory.
+     * 
+     * @return a list of Command instances
+     */
     public ArrayList<Command> loadAllCommands() {
     	ArrayList<Command> commands = new ArrayList<>();
     	File commandFolder = new File("commands");

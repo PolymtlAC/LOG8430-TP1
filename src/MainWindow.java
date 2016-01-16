@@ -31,6 +31,7 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 	protected JButton clearButton;
 	protected JFileChooser fileChooser;
 	protected ArrayList<UICommand> commands;
+	protected File currentFile;
 	
 	 /**
      * Constructor MainWindow.
@@ -43,8 +44,9 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 		this.commands = new ArrayList<>();
 		this.fileChooser = new JFileChooser();
 		this.fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		this.fileSystemModel = new DefaultTreeModel(new UIFile(System.getProperty("user.home")));
-		
+		this.currentFile = new File(System.getProperty("user.home"));
+		this.fileSystemModel = new DefaultTreeModel(new UIFile(this.currentFile));
+				
 		this.setTitle("LOG8430 - Option 1");
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
@@ -66,7 +68,9 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 		
 		this.commandPanel = new JPanel();
 		this.commandPanel.setLayout(new BoxLayout(commandPanel, BoxLayout.PAGE_AXIS));
-		this.addCommands();
+		
+		CommandWatcher commandWatcher = new CommandWatcher(this);
+		commandWatcher.start();
 		
 		this.clearButton = new JButton("Clear");
 		this.clearButton.addActionListener(this);
@@ -87,12 +91,17 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 		this.getContentPane().add(westPanel, BorderLayout.WEST);
 		this.getContentPane().add(centerPanel, BorderLayout.CENTER);
 		this.getContentPane().add(southLabel, BorderLayout.SOUTH);
+		
+		this.loadCommands();
 	}
 	
 	/**
 	 * Adds the commands to the command list.
 	 */
-	public void addCommands() {
+	public void loadCommands() {
+		this.commandPanel.removeAll();
+		this.commands = new ArrayList<>();
+		
 		CommandLoader commandLoader = new CommandLoader(CommandLoader.class.getClassLoader());
 		
 		for(Command command : commandLoader.loadAllCommands()) {
@@ -100,6 +109,12 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 			this.commandPanel.add(uiCommand);
 			this.commands.add(uiCommand);
 		}
+		
+		this.commandPanel.revalidate();
+		this.commandPanel.repaint();
+		
+		// to re-initialise correctly all commands and potentially auto-run them
+		this.setCurrentFile(this.currentFile);
 	}
 
 	/**
@@ -139,6 +154,8 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 	 * @param file
 	 */
 	private void setCurrentFile(File file) {
+		this.currentFile = file;
+		
         for(UICommand command : commands) {
 			command.setCurrentFile(file);
 			
