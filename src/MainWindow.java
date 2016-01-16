@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  * Main window of the application.
@@ -22,7 +23,7 @@ import javax.swing.event.TreeSelectionListener;
  */
 public class MainWindow extends JFrame implements ActionListener, TreeSelectionListener {
 	
-	protected FileSystemModel fileSystemModel;
+	protected DefaultTreeModel fileSystemModel;
 	protected JTree tree;
 	protected JPanel commandPanel;
 	protected JButton folderSelectionButton;
@@ -41,8 +42,8 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 		
 		this.commands = new ArrayList<>();
 		this.fileChooser = new JFileChooser();
-		this.fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		this.fileSystemModel = new FileSystemModel();
+		this.fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		this.fileSystemModel = new DefaultTreeModel(new UIFile(System.getProperty("user.home")));
 		
 		this.setTitle("LOG8430 - Option 1");
 		this.setSize(800, 600);
@@ -51,7 +52,7 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 		
 		this.setLayout(new BorderLayout());
 		
-		this.fileSystemModel.setRoot(new File(System.getProperty("user.home")));
+		//this.fileSystemModel.setRoot(new File(System.getProperty("user.home")));
 		this.tree = new JTree(this.fileSystemModel);
 		this.tree.addTreeSelectionListener(this);
 		
@@ -123,12 +124,12 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 	 */
 	@Override
 	public void valueChanged(TreeSelectionEvent event) {
-		File file = (File) tree.getLastSelectedPathComponent();
+		UIFile uiFile = (UIFile) tree.getLastSelectedPathComponent();
 		
-		if(file == null)
+		if(uiFile == null)
 			return;
 		
-		this.setCurrentFile(file);
+		this.setCurrentFile(uiFile.getFile());
 	}
 	
 	/**
@@ -159,10 +160,18 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 	/** 
 	 * Opens the file chooser and modifies the current file if the user doesn't cancel.
 	 * Update the tree view with the new root if necessary.
+	 * If a file is selected the parent directory is set as root in the tree view.
 	 */
 	public void selectFolder() {
         if(fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
+            
+            if(file.isDirectory()) {
+            	this.fileSystemModel.setRoot(new UIFile(file.getAbsolutePath()));
+            } else {
+            	this.fileSystemModel.setRoot(new UIFile(file.getParentFile().getAbsolutePath()));
+            }
+            
             this.setCurrentFile(file);
         }
 	}
