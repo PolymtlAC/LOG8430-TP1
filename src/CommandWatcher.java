@@ -1,18 +1,17 @@
 import java.io.File;
 import java.util.HashMap;
+import java.util.Observable;
 
 /**
  * Watches the commands folder and when a file is added, removed or changed,
  * tells the window to reload all commands.
  *
  */
-public class CommandWatcher extends Thread {
+public class CommandWatcher extends Observable implements Runnable {
 	
 	protected HashMap<String,Long> files;
-	protected MainWindow window;
 	
-	public CommandWatcher(MainWindow window) {
-		this.window = window;
+	public CommandWatcher() {
 		this.init();
 	}
 	
@@ -40,12 +39,14 @@ public class CommandWatcher extends Thread {
 	    	File commandsDir = new File("commands");
 	    	File[] commandsFile = commandsDir.listFiles();
 	    	if(commandsFile.length != files.size()) {
-	    		window.loadCommands();
+	    		this.setChanged();
+	    		this.notifyObservers();
 	    		this.init();
 	    	} else {
 	    		for(File file : commandsFile) {
 	    			if(this.files.get(file.getName()) != file.lastModified()) {
-	    				window.loadCommands();
+	    				this.setChanged();
+	    				this.notifyObservers();
 	    				this.init();
 	    				break;
 	    			}

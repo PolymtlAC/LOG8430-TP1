@@ -3,6 +3,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -21,7 +23,7 @@ import javax.swing.tree.DefaultTreeModel;
  * Main window of the application.
  *
  */
-public class MainWindow extends JFrame implements ActionListener, TreeSelectionListener {
+public class MainWindow extends JFrame implements Observer, ActionListener, TreeSelectionListener {
 	
 	protected DefaultTreeModel fileSystemModel;
 	protected JTree tree;
@@ -69,8 +71,10 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
 		this.commandPanel = new JPanel();
 		this.commandPanel.setLayout(new BoxLayout(commandPanel, BoxLayout.PAGE_AXIS));
 		
-		CommandWatcher commandWatcher = new CommandWatcher(this);
-		commandWatcher.start();
+		CommandWatcher commandWatcher = new CommandWatcher();
+		commandWatcher.addObserver(this);
+		Thread thread = new Thread(commandWatcher);
+		thread.start();
 		
 		this.clearButton = new JButton("Clear");
 		this.clearButton.addActionListener(this);
@@ -191,6 +195,14 @@ public class MainWindow extends JFrame implements ActionListener, TreeSelectionL
             
             this.setCurrentFile(file);
         }
+	}
+
+	/**
+	 * called when the watcher see changes in the commands files.
+	 */
+	@Override
+	public void update(Observable o, Object arg) {
+		this.loadCommands();
 	}
 	
 }
