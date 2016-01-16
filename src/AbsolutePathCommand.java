@@ -19,7 +19,7 @@ public class AbsolutePathCommand implements Command {
 
 	@Override
 	public String getName() {
-		return "Absolute path";
+		return "Absolute path ";
 	}
 
 }
