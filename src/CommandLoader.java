@@ -71,7 +71,9 @@ public class CommandLoader extends ClassLoader{
     	ArrayList<Command> commands = new ArrayList<>();
     	File commandFolder = new File("commands");
     	for(File commandClassFile : commandFolder.listFiles()) {
-    		commands.add(this.loadCommand(commandClassFile.getName().replaceFirst("[.][^.]+$", "")));
+    		if(!commandClassFile.getName().contains(".DS_Store")) {
+    			commands.add(this.loadCommand(commandClassFile.getName().replaceFirst("[.][^.]+$", "")));
+    		}
     	}
     	return commands;
     }
