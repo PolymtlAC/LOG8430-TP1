@@ -1,16 +1,16 @@
 
 import java.io.File;
 
-public class AbsolutePathCommand implements Command {
+public class FolderNumberOfChildCommand implements Command {
 
 	@Override
 	public String execute(File file) {
-		return file.getAbsolutePath();
+		return Integer.toString(file.list().length);
 	}
 
 	@Override
 	public boolean fileCompatible() {
-		return true;
+		return false;
 	}
 
 	@Override
@@ -20,7 +20,7 @@ public class AbsolutePathCommand implements Command {
 
 	@Override
 	public String getName() {
-		return "Absolute path";
+		return "Folder number of children";
 	}
 
 }

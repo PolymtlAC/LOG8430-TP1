@@ -1,11 +1,11 @@
 
 import java.io.File;
 
-public class AbsolutePathCommand implements Command {
+public class ParentCommand implements Command {
 
 	@Override
 	public String execute(File file) {
-		return file.getAbsolutePath();
+		return file.getParentFile().getName();
 	}
 
 	@Override
@@ -20,7 +20,7 @@ public class AbsolutePathCommand implements Command {
 
 	@Override
 	public String getName() {
-		return "Absolute path";
+		return "Parent name";
 	}
 
 }
