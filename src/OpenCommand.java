@@ -2,8 +2,8 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
-public class OpenFileCommand implements Command {
-	
+public class OpenCommand implements Command {
+
 	@Override
 	public String execute(File file) {
 		if(!Desktop.isDesktopSupported()){
@@ -19,21 +19,20 @@ public class OpenFileCommand implements Command {
 		}
         return "Done !";
 	}
-	
+
 	@Override
 	public boolean fileCompatible() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean folderCompatible() {
-		return false;
+		return true;
 	}
-	
+
 	@Override
 	public String getName() {
-		return "Open file";
+		return "Open";
 	}
-	
-}
 
+}
