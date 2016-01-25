@@ -23,7 +23,6 @@ public class CommandLoader extends ClassLoader{
     	}
     	
 		try {
-			System.out.println(name);
 			InputStream input = new FileInputStream("commands/"+name+".class");
 			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 	        int data = input.read();
@@ -71,7 +70,8 @@ public class CommandLoader extends ClassLoader{
     	ArrayList<Command> commands = new ArrayList<>();
     	File commandFolder = new File("commands");
     	for(File commandClassFile : commandFolder.listFiles()) {
-    		if(!commandClassFile.getName().contains(".DS_Store")) {
+    		System.out.println(commandClassFile.getName());
+    		if(commandClassFile.getName().contains("Command")) {
     			commands.add(this.loadCommand(commandClassFile.getName().replaceFirst("[.][^.]+$", "")));
     		}
     	}
