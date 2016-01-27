@@ -8,4 +8,36 @@ Certaines commandes ne peuvent être exécuter que pour des fichiers ou des doss
 
 Les commandes sont chargés automatiquement au lancement du logiciel via le dossier "commands" qui contient l'ensemble des fichiers .class définissant les commandes. L'utilisateur peut utiliser l'interface Command.java afin de concevoir ses propres commandes. Une fois une commande implémentée, il faut build le fichier afin d'obtenir le fichier .class et l'ajouter au dossier "commands". Si l'utilisateur le souhaite, il est possible de modifier le dossier "commands" au cours de l'exécution du logiciel. La liste des commandes se met automatiquement à jour.
 
+Exemple d'une commande retournant le nom d'un fichier : 
+
+    import java.io.File;
+        public class FileNameCommand implements Command {
+
+            // méthode permettant de définir la commande (résultat de la commande)
+            @Override
+            public String execute(File file) {
+                return file.getName();
+            }
+        
+            // méthode définissant si la commande est exécutable pour un fichier
+            @Override
+            public boolean fileCompatible() {
+                return true;
+            }
+            
+            // méthode définissant si la commande est exécutable pour un dossier
+            @Override
+            public boolean folderCompatible() {
+                return false;
+            }
+            
+            // méthode définissant le nom de la commande apparaissant sur l'inteface graphique
+            @Override
+            public String getName() {
+                return "File name";
+            }
+            
+        }
+
+
 ### Have Fun !
