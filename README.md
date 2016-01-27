@@ -11,33 +11,33 @@ Les commandes sont chargés automatiquement au lancement du logiciel via le doss
 Exemple d'une commande retournant le nom d'un fichier : 
 
     import java.io.File;
-        public class FileNameCommand implements Command {
+    public class FileNameCommand implements Command {
 
-            // méthode permettant de définir la commande (résultat de la commande)
-            @Override
-            public String execute(File file) {
-                return file.getName();
-            }
-        
-            // méthode définissant si la commande est exécutable pour un fichier
-            @Override
-            public boolean fileCompatible() {
-                return true;
-            }
-            
-            // méthode définissant si la commande est exécutable pour un dossier
-            @Override
-            public boolean folderCompatible() {
-                return false;
-            }
-            
-            // méthode définissant le nom de la commande apparaissant sur l'inteface graphique
-            @Override
-            public String getName() {
-                return "File name";
-            }
-            
+        // méthode permettant de définir la commande (résultat de la commande)
+        @Override
+        public String execute(File file) {
+            return file.getName();
         }
+        
+        // méthode définissant si la commande est exécutable pour un fichier
+        @Override
+        public boolean fileCompatible() {
+            return true;
+        }
+            
+        // méthode définissant si la commande est exécutable pour un dossier
+        @Override
+        public boolean folderCompatible() {
+            return false;
+        }
+            
+        // méthode définissant le nom de la commande apparaissant sur l'inteface graphique
+        @Override
+        public String getName() {
+            return "File name";
+        }
+        
+    }
 
 
 ### Have Fun !
