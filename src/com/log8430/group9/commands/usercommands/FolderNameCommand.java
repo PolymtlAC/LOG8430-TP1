@@ -1,16 +1,19 @@
+package com.log8430.group9.commands.usercommands;
 
 import java.io.File;
 
-public class AbsolutePathCommand implements Command {
+import com.log8430.group9.commands.Command;
+
+public class FolderNameCommand implements Command {
 
 	@Override
 	public String execute(File file) {
-		return file.getAbsolutePath();
+		return file.getName();
 	}
 
 	@Override
 	public boolean fileCompatible() {
-		return true;
+		return false;
 	}
 
 	@Override
@@ -20,7 +23,7 @@ public class AbsolutePathCommand implements Command {
 
 	@Override
 	public String getName() {
-		return "Absolute path";
+		return "Folder name";
 	}
 
 }

@@ -1,3 +1,4 @@
+package com.log8430.group9.views;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.File;
@@ -5,6 +6,8 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import com.log8430.group9.commands.Command;
 
 /**
  * This class represents the graphical interface for commands.

@@ -1,3 +1,4 @@
+package com.log8430.group9.views;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +20,10 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeSelectionModel;
+
+import com.log8430.group9.commands.Command;
+import com.log8430.group9.commands.CommandLoader;
+import com.log8430.group9.commands.CommandWatcher;
 
 /**
  * Main window of the application.

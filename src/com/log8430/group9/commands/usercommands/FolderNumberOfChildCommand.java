@@ -1,11 +1,14 @@
+package com.log8430.group9.commands.usercommands;
 
 import java.io.File;
 
-public class FolderNameCommand implements Command {
+import com.log8430.group9.commands.Command;
+
+public class FolderNumberOfChildCommand implements Command {
 
 	@Override
 	public String execute(File file) {
-		return file.getName();
+		return Integer.toString(file.list().length);
 	}
 
 	@Override
@@ -20,7 +23,7 @@ public class FolderNameCommand implements Command {
 
 	@Override
 	public String getName() {
-		return "Folder name";
+		return "Folder number of children";
 	}
 
 }

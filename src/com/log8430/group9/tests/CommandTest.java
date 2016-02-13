@@ -1,5 +1,14 @@
+package com.log8430.group9.tests;
 import java.io.File;
 import java.util.ArrayList;
+
+import com.log8430.group9.commands.Command;
+import com.log8430.group9.commands.CommandLoader;
+import com.log8430.group9.commands.usercommands.AbsolutePathCommand;
+import com.log8430.group9.commands.usercommands.FileNameCommand;
+import com.log8430.group9.commands.usercommands.FolderNameCommand;
+import com.log8430.group9.commands.usercommands.FolderNumberOfChildCommand;
+import com.log8430.group9.commands.usercommands.ParentCommand;
 
 import junit.framework.TestCase;
 

@@ -1,3 +1,4 @@
+package com.log8430.group9.commands;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -18,7 +19,7 @@ public class CommandLoader extends ClassLoader{
      * @return a Class of the commands folder
      */
     public Class loadClass(String name) throws ClassNotFoundException {
-    	if(name.contains("Command") && name != "Command") {
+    	if(!name.contains("Command") || name.equals("com.log8430.group9.commands.Command")) {
     		return super.loadClass(name);
     	}
     	
@@ -36,7 +37,7 @@ public class CommandLoader extends ClassLoader{
 
 	        byte[] classData = buffer.toByteArray();
 
-	        return this.defineClass(name, classData, 0, classData.length);
+	        return this.defineClass("com.log8430.group9.commands.usercommands."+name, classData, 0, classData.length);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

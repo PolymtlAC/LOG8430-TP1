@@ -1,16 +1,19 @@
+package com.log8430.group9.commands.usercommands;
 
 import java.io.File;
 
-public class FolderNumberOfChildCommand implements Command {
+import com.log8430.group9.commands.Command;
+
+public class AbsolutePathCommand implements Command {
 
 	@Override
 	public String execute(File file) {
-		return Integer.toString(file.list().length);
+		return file.getAbsolutePath();
 	}
 
 	@Override
 	public boolean fileCompatible() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -20,7 +23,7 @@ public class FolderNumberOfChildCommand implements Command {
 
 	@Override
 	public String getName() {
-		return "Folder number of children";
+		return "Absolute path";
 	}
 
 }

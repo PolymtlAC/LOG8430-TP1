@@ -1,6 +1,9 @@
+package com.log8430.group9.commands.usercommands;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+
+import com.log8430.group9.commands.Command;
 
 public class OpenCommand implements Command {
 
