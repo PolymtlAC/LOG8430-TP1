@@ -70,7 +70,6 @@ public class CommandLoader extends ClassLoader{
     	ArrayList<Command> commands = new ArrayList<>();
     	File commandFolder = new File("commands");
     	for(File commandClassFile : commandFolder.listFiles()) {
-    		System.out.println(commandClassFile.getName());
     		if(commandClassFile.getName().contains("Command")) {
     			commands.add(this.loadCommand(commandClassFile.getName().replaceFirst("[.][^.]+$", "")));
     		}

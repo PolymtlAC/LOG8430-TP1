@@ -18,6 +18,7 @@ import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
 
 /**
  * Main window of the application.
@@ -59,6 +60,7 @@ public class MainWindow extends JFrame implements Observer, ActionListener, Tree
 		//this.fileSystemModel.setRoot(new File(System.getProperty("user.home")));
 		this.tree = new JTree(this.fileSystemModel);
 		this.tree.addTreeSelectionListener(this);
+		this.tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		
 		JScrollPane treeView = new JScrollPane(this.tree);
 		this.folderSelectionButton = new JButton("Select a file or a folder");

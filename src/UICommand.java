@@ -47,7 +47,12 @@ public class UICommand extends JPanel {
 	 * Print the result in the label next to the button.
 	 */
 	public void execute() {
-		this.commandResult.setText(this.command.execute(currentFile));
+		try {
+			this.commandResult.setText(this.command.execute(currentFile));
+		} catch(Exception e) {
+			this.commandResult.setText(e.getMessage());
+		}
+		
 	}
 	
 	/**
